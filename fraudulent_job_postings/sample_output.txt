@@ -1,0 +1,243 @@
+Schema of the dataset:
+root
+ |-- job_id: integer (nullable = true)
+ |-- title: string (nullable = true)
+ |-- location: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- salary_range: string (nullable = true)
+ |-- company_profile: string (nullable = true)
+ |-- description: string (nullable = true)
+ |-- requirements: string (nullable = true)
+ |-- benefits: string (nullable = true)
+ |-- telecommuting: integer (nullable = true)
+ |-- has_company_logo: integer (nullable = true)
+ |-- has_questions: integer (nullable = true)
+ |-- employment_type: string (nullable = true)
+ |-- required_experience: string (nullable = true)
+ |-- required_education: string (nullable = true)
+ |-- industry: string (nullable = true)
+ |-- function: string (nullable = true)
+ |-- fraudulent: integer (nullable = true)
+
+Total number of job advertisements: 17880
++----------+-----+----------+
+|  job_type|count|percentage|
++----------+-----+----------+
+|Fraudulent|  866|      4.84|
+|   Genuine|17014|     95.16|
++----------+-----+----------+
+
++------+-------------+----------+----------+--------+
+|job_id| salary_range|min_salary|max_salary|job_type|
++------+-------------+----------+----------+--------+
+|     7|  20000-28000|     20000|     28000| Genuine|
+|    11|100000-120000|    100000|    120000| Genuine|
+|    16|120000-150000|    120000|    150000| Genuine|
+|    24|100000-120000|    100000|    120000| Genuine|
+|    32|  50000-65000|     50000|     65000| Genuine|
+|    43|  40000-50000|     40000|     50000| Genuine|
+|    66|        60-80|        60|        80| Genuine|
+|    77|  65000-70000|     65000|     70000| Genuine|
+|    78|       75-115|        75|       115| Genuine|
+|    80| 75000-110000|     75000|    110000| Genuine|
++------+-------------+----------+----------+--------+
+only showing top 10 rows
+Ads with a salary_range value: 2868
+Ads where min and max salary were extracted: 2841
+Ads with a salary_range that could not be extracted: 27
++------------+
+|salary_range|
++------------+
+|10-Nov      |
+|10-Oct      |
+|11-Dec      |
+|11-Nov      |
+|2-Apr       |
+|2-Jun       |
+|3-Apr       |
+|4-Apr       |
+|4-Jun       |
+|40000       |
+|8-Sep       |
+|9-Dec       |
+|Dec-25      |
+|Jun-18      |
+|Oct-15      |
+|Oct-20      |
++------------+
+
+Statistics of minimum salary:
++----------+-------+---------+--------+-----------+
+|job_type  |num_ads|mean     |median  |std_dev    |
++----------+-------+---------+--------+-----------+
+|Fraudulent|222    |66411.11 |30000.00|420676.81  |
+|Genuine   |2619   |553651.00|36000.00|18430364.04|
++----------+-------+---------+--------+-----------+
+
+Statistics of maximum salary:
++----------+-------+---------+--------+-----------+
+|job_type  |num_ads|mean     |median  |std_dev    |
++----------+-------+---------+--------+-----------+
+|Fraudulent|222    |159935.80|45000.00|636509.91  |
+|Genuine   |2619   |867892.30|50000.00|28179914.12|
++----------+-------+---------+--------+-----------+
+
+Five largest maximum salaries:
++------+--------------------+----------+--------+
+|job_id|salary_range        |max_salary|job_type|
++------+--------------------+----------+--------+
+|3140  |800000000-1200000000|1200000000|Genuine |
+|12252 |500000000-800000000 |800000000 |Genuine |
+|7652  |150000-16500000     |16500000  |Genuine |
+|377   |120000-15000000     |15000000  |Genuine |
+|6748  |2000000-15000000    |15000000  |Genuine |
++------+--------------------+----------+--------+
+only showing top 5 rows
+Fraudulent - ads: 222 | min salary = 0: 6 | max salary = 0: 4
+Genuine - ads: 2619 | min salary = 0: 189 | max salary = 0: 138
++----------+-------+-----------+--------------+------------+------------+
+|job_type  |num_ads|min_is_zero|min_below_1000|max_above_1m|pct_above_1m|
++----------+-------+-----------+--------------+------------+------------+
+|Fraudulent|222    |6          |34            |11          |4.95        |
+|Genuine   |2619   |189        |362           |23          |0.88        |
++----------+-------+-----------+--------------+------------+------------+
+
+Quartiles and IQR of minimum salary:
++----------+-------+-------+-------+
+|job_type  |q1_min |q3_min |iqr_min|
++----------+-------+-------+-------+
+|Fraudulent|7200.0 |50000.0|42800.0|
+|Genuine   |18000.0|60000.0|42000.0|
++----------+-------+-------+-------+
+
+Quartiles and IQR of maximum salary:
++----------+-------+-------+-------+
+|job_type  |q1_max |q3_max |iqr_max|
++----------+-------+-------+-------+
+|Fraudulent|28000.0|75000.0|47000.0|
+|Genuine   |25000.0|90000.0|65000.0|
++----------+-------+-------+-------+
+
+IQR bounds:
++----------+---------+---------+---------+---------+
+|job_type  |lower_min|upper_min|lower_max|upper_max|
++----------+---------+---------+---------+---------+
+|Fraudulent|-57000.0 |114200.0 |-42500.0 |145500.0 |
+|Genuine   |-45000.0 |123000.0 |-72500.0 |187500.0 |
++----------+---------+---------+---------+---------+
+
+Number of postings before and after removing extreme values:
++----------+------+-----+-------+-----------+
+|  job_type|before|after|removed|pct_removed|
++----------+------+-----+-------+-----------+
+|Fraudulent|   222|  198|     24|      10.81|
+|   Genuine|  2619| 2443|    176|       6.72|
++----------+------+-----+-------+-----------+
+
+Limits used for flagging outliers:
+Fraudulent min_salary  IQR bounds: (  -57000.0,   114200.0)   limits used: (  -57000.0,   260000.0)
+Fraudulent max_salary  IQR bounds: (  -42500.0,   145500.0)   limits used: (  -42500.0,   260000.0)
+Genuine    min_salary  IQR bounds: (  -45000.0,   123000.0)   limits used: (  -45000.0,   260000.0)
+Genuine    max_salary  IQR bounds: (  -72500.0,   187500.0)   limits used: (  -72500.0,   260000.0)
+Number of outliers flagged and removed:
++----------+------+-------+-----+
+|  job_type|before|removed|after|
++----------+------+-------+-----+
+|Fraudulent|   222|     18|  204|
+|   Genuine|  2619|     94| 2525|
++----------+------+-------+-----+
+
+Postings that were flagged as outliers (first 20):
++------+---------------+----------+
+|job_id|salary_range   |job_type  |
++------+---------------+----------+
+|5074  |6266624-8582080|Fraudulent|
+|5688  |7200-1380000   |Fraudulent|
+|5692  |7200-1380000   |Fraudulent|
+|6057  |250000-500000  |Fraudulent|
+|6058  |250000-500000  |Fraudulent|
+|6059  |250000-500000  |Fraudulent|
+|6847  |7200-1380000   |Fraudulent|
+|6852  |7200-1380000   |Fraudulent|
+|6855  |7200-1380000   |Fraudulent|
+|17526 |250000-500000  |Fraudulent|
+|17577 |250000-500000  |Fraudulent|
+|17589 |250000-500000  |Fraudulent|
+|17603 |7200-1380000   |Fraudulent|
+|17681 |7200-1380000   |Fraudulent|
+|17712 |7200-1380000   |Fraudulent|
+|17734 |250000-500000  |Fraudulent|
+|17747 |7200-1380000   |Fraudulent|
+|17754 |7200-1380000   |Fraudulent|
+|198   |360000-600000  |Genuine   |
+|377   |120000-15000000|Genuine   |
++------+---------------+----------+
+only showing top 20 rows
+Statistics of minimum salary after removing outliers:
++----------+-------+--------+--------+--------+
+|job_type  |num_ads|mean    |median  |std_dev |
++----------+-------+--------+--------+--------+
+|Fraudulent|204    |32620.80|30000.00|28387.46|
+|Genuine   |2525   |40865.62|35000.00|34146.69|
++----------+-------+--------+--------+--------+
+
+Statistics of maximum salary after removing outliers:
++----------+-------+--------+--------+--------+
+|job_type  |num_ads|mean    |median  |std_dev |
++----------+-------+--------+--------+--------+
+|Fraudulent|204    |47174.84|40000.00|39427.08|
+|Genuine   |2525   |58145.95|50000.00|46844.79|
++----------+-------+--------+--------+--------+
+
++--------+------------------------------------------------------------------------------------------+
+|job_type|                                                                         clean_description|
++--------+------------------------------------------------------------------------------------------+
+| Genuine|food a fast growing james beard award winning online food community and crowd sourced a...|
+| Genuine|organised focused vibrant awesome do you have a passion for customer service slick typi...|
+| Genuine|our client located in houston is actively seeking an experienced commissioning machiner...|
++--------+------------------------------------------------------------------------------------------+
+only showing top 3 rows
+Top 10 bi-grams for Fraudulent job postings:
+('of the', 492)
+('we are', 411)
+('in the', 410)
+('looking for', 346)
+('to the', 308)
+('for the', 286)
+('to work', 278)
+('are looking', 233)
+('in a', 231)
+('with the', 228)
+Top 10 bi-grams for Genuine job postings:
+('of the', 10525)
+('in the', 9212)
+('will be', 8940)
+('you will', 8271)
+('we are', 7731)
+('looking for', 6873)
+('in a', 5453)
+('is a', 5384)
+('to the', 5173)
+('for the', 5080)
+Top 10 tri-grams for Fraudulent job postings:
+('are looking for', 196)
+('we are looking', 159)
+('oil and gas', 142)
+('looking for a', 117)
+('and gas industry', 112)
+('we are seeking', 91)
+('be responsible for', 84)
+('as well as', 71)
+('be able to', 71)
+('solutions is a', 71)
+Top 10 tri-grams for Genuine job postings:
+('you will be', 3168)
+('are looking for', 3119)
+('we are looking', 2863)
+('looking for a', 2772)
+('as well as', 2328)
+('be responsible for', 1742)
+('to join our', 1657)
+('be able to', 1614)
+('will be responsible', 1458)
+('this is a', 1455)
